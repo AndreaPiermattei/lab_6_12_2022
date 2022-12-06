@@ -7,9 +7,9 @@ namespace Properties
     /// </summary>
     public class Card
     {
-        private readonly string _seed;
-        private readonly string _name;
-        private readonly int _ordinal;
+        public string Seed { get; }
+        public string Name { get; }
+        public int Ordinal { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Card"/> class.
@@ -19,9 +19,9 @@ namespace Properties
         /// <param name="ordinal">the ordinal number of the card.</param>
         public Card(string name, string seed, int ordinal)
         {
-            _name = name;
-            _ordinal = ordinal;
-            _seed = seed;
+            Name = name;
+            Ordinal = ordinal;
+            Seed = seed;
         }
 
         /// <summary>
@@ -33,25 +33,41 @@ namespace Properties
         }
 
         // TODO improve
-        public string GetSeed() => _seed;
+        // public string GetSeed() => Seed;
       
 
         // TODO improve
-        public string GetName() => _name;
+        // public string GetName() => Name;
 
         // TODO improve
-        public int GetOrdinal() => _ordinal;
+        // public int GetOrdinal() => Ordinal;
         
 
         /// <inheritdoc cref="object.ToString"/>
         public override string ToString()
         {
             // TODO understand string interpolation
-            return $"{this.GetType().Name}(Name={this.GetName()}, Seed={this.GetSeed()}, Ordinal={this.GetOrdinal()})";
+            return $"{this.GetType().Name}(Name={Name}, Seed={Seed}, Ordinal={Ordinal})";
         }
 
         // TODO generate Equals(object obj)
+        // override object.Equals
+        public bool Equals(Card other) => string.Equals(Seed,other.Seed) && 
+                                            string.Equals(Name,other) &&
+                                                Ordinal == other.Ordinal;
+            
+    
+        public override bool Equals(object obj) => obj is Card card && Equals(card);
+      
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            // TODO: write your implementation of GetHashCode() here
+            return HashCode.Combine(Seed, Name, Ordinal);
+        }
 
-        // TODO generate GetHashCode()
     }
+           // TODO generate GetHashCode()
 }
+    
+
